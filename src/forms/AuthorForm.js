@@ -11,6 +11,9 @@ class AuthorForm extends Component {
     books: []
   };
 
+  onTextChange = event =>
+    this.setState({ [event.target.name]: event.target.value });
+
   submitAuthor = async event => {
     event.preventDefault();
     await authorStore.addAuthor(this.state);
@@ -34,22 +37,41 @@ class AuthorForm extends Component {
             <div className="input-group-prepend">
               <span className="input-group-text">First Name</span>
             </div>
-            <input type="text" className="form-control" name="first_name" />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.first_name}
+              name="first_name"
+              onChange={this.onTextChange}
+            />
           </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text">Last Name</span>
             </div>
-            <input type="text" className="form-control" name="last_name" />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.last_name}
+              name="last_name"
+              onChange={this.onTextChange}
+            />
           </div>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text">Image URL</span>
             </div>
-            <input type="text" className="form-control" name="imageUrl" />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.imageUrl}
+              name="imageUrl"
+              onChange={this.onTextChange}
+            />
           </div>
           <input type="submit" />
         </form>
+        <h5>{authorStore.statusMessage}</h5>
       </div>
     );
   }

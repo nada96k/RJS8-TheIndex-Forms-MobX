@@ -21,6 +21,18 @@ class BookStore {
     } catch (err) {}
   };
 
+  addBook = (newBook, authorID) => {
+    newBook.authors = [authorID];
+    try {
+      const res = instance.post("/api/books/", newBook);
+      const book = res.data;
+      this.books.push(book);
+      this.statusMessage = "Success";
+    } catch (err) {
+      this.statusMessage = err.response;
+    }
+  };
+
   get filteredBooks() {
     return this.books.filter(book => {
       return book.title.toLowerCase().includes(this.query.toLowerCase());
