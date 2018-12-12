@@ -20,7 +20,8 @@ class BookForm extends Component {
 
   submitBook(event) {
     event.preventDefault();
-    bookStore.addBook(this.state, this.props.authorID);
+    bookStore.addBook(this.state, this.props.author);
+    this.props.closeModal();
   }
 
   render() {
