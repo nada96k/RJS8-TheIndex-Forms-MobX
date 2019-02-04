@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-// import BookForm from "./forms/BookForm";
+import BookForm from "./forms/BookForm";
 import Modal from "react-responsive-modal";
 
 class AddBookModal extends Component {
