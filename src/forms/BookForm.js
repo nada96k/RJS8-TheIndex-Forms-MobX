@@ -4,15 +4,10 @@ import { observer } from "mobx-react";
 import bookStore from "../stores/bookStore";
 
 class BookForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      color: ""
-    };
-    this.onTextChange = this.onTextChange.bind(this);
-    this.submitBook = this.submitBook.bind(this);
-  }
+  state = {
+    title: "",
+    color: ""
+  };
 
   onTextChange = event => {
     this.setState({ [event.target.name]: event.target.value });
