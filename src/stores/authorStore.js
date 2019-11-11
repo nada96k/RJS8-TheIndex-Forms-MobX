@@ -2,7 +2,7 @@ import { decorate, observable, computed } from "mobx";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com"
+  baseURL: "https://the-index-api.herokuapp.com/api/"
 });
 
 function errToArray(err) {
@@ -20,7 +20,7 @@ class AuthorStore {
 
   fetchAuthors = async () => {
     try {
-      const res = await instance.get("/api/authors/");
+      const res = await instance.get("authors/");
       const authors = res.data;
       this.authors = authors;
       this.loading = false;
@@ -31,7 +31,7 @@ class AuthorStore {
 
   addAuthor = async newAuthor => {
     try {
-      const res = await instance.post("/api/authors/", newAuthor);
+      const res = await instance.post("authors/", newAuthor);
       const author = res.data;
       this.authors.unshift(author);
       this.errors = null;

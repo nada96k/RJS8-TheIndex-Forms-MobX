@@ -2,7 +2,7 @@ import { decorate, observable, computed } from "mobx";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com"
+  baseURL: "https://the-index-api.herokuapp.com/api/"
 });
 
 class BookStore {
@@ -14,9 +14,7 @@ class BookStore {
 
   fetchBooks = async () => {
     try {
-      const res = await instance.get(
-        "https://the-index-api.herokuapp.com/api/books/"
-      );
+      const res = await instance.get("books/");
       const books = res.data;
       this.books = books;
       this.loading = false;

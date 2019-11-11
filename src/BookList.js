@@ -11,7 +11,6 @@ import bookStore from "./stores/bookStore";
 const BookList = props => {
   const bookColor = props.match.params.bookColor;
   let books = bookStore.filteredBooks;
-
   if (bookColor) {
     books = bookStore.getBooksByColor(bookColor);
   }
