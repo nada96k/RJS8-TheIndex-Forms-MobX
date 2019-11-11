@@ -30,7 +30,7 @@ class BookStore {
   addBook = async (newBook, author) => {
     newBook.authors = [author.id];
     try {
-      const res = await instance.post("/api/books/", newBook);
+      const res = await instance.post("books/", newBook);
       const book = res.data;
       this.books.push(book);
       this.errors = null;
