@@ -38,13 +38,18 @@ class BookStore {
   getBooksByColor = color =>
     this.filteredBooks.filter(book => book.color === color);
 
-  addBook = async newBook => {
+  addBook = async (newBook, author) => {
     try {
-      const res = await instance.post("/books/", newBook);
-      const newBook = res.data;
-      this.books.unshift(newBook);
+      const newObj = {
+        title: newBook.title,
+        color: newBook.color,
+        authors: [author]
+      };
+      const res = await instance.post("/books/", newObj);
+      const newStuff = res.data;
+      this.books.unshift(newStuff);
       this.errors = null;
-      console.log("response", newBook);
+      console.log("response", newStuff);
     } catch (err) {
       this.errors = errToArray(err.response.data);
     }

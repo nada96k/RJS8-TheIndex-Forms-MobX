@@ -6,17 +6,15 @@ import bookStore from "../stores/bookStore";
 class BookForm extends Component {
   state = {
     title: "",
-    color: "",
-    authors: []
+    color: ""
   };
 
   submitBook = event => {
     const authorID = this.props.author.id;
-    this.setState.push({ authors: authorID });
+    console.log("hello author", authorID);
     event.preventDefault();
-    bookStore.addBook(this.state);
+    bookStore.addBook(this.state, authorID);
     if (!bookStore.errors) {
-      console.log(this.state);
       this.props.closeModal();
     }
   };
