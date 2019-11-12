@@ -31,6 +31,14 @@ class BookStore {
 
   getBooksByColor = color =>
     this.filteredBooks.filter(book => book.color === color);
+  addBook = async (newBook, author) => {
+    try {
+      const res = await axios.post("/books/", newBook, author);
+      const data = res.data;
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
 }
 
 decorate(BookStore, {

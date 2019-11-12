@@ -49,6 +49,10 @@ class AuthorStore {
   }
 
   getAuthorById = id => this.authors.find(author => +author.id === +id);
+
+  // handleChange = event => {
+  //   this.setState({ [event.target.name]: event.target.value });
+  // };
 }
 
 decorate(AuthorStore, {
