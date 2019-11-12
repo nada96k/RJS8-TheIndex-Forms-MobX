@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 
 import bookStore from "../stores/bookStore";
-import authorStore from "../stores/authorStore";
 
 class BookForm extends Component {
   state = {
     title: "",
-    color: null,
+    color: "",
     authors: []
   };
 
@@ -17,6 +16,7 @@ class BookForm extends Component {
     event.preventDefault();
     bookStore.addBook(this.state);
     if (!bookStore.errors) {
+      console.log(this.state);
       this.props.closeModal();
     }
   };
@@ -56,7 +56,7 @@ class BookForm extends Component {
               type="text"
               className="form-control"
               name="color"
-              value={this.state.Color}
+              value={this.state.color}
               onChange={this.handleChange}
             />
           </div>

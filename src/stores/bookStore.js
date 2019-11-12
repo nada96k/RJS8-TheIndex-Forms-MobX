@@ -1,9 +1,13 @@
 import { decorate, observable, computed } from "mobx";
 import axios from "axios";
 
-// const instance = axios.create({
-//   baseURL: "https://the-index-api.herokuapp.com/api/"
-// });
+const instance = axios.create({
+  baseURL: "https://the-index-api.herokuapp.com/api/"
+});
+
+function errToArray(err) {
+  return Object.keys(err).map(key => `${key}: ${err[key]}`);
+}
 
 class BookStore {
   books = [];
@@ -12,11 +16,11 @@ class BookStore {
 
   loading = true;
 
+  errors = null;
+
   fetchBooks = async () => {
     try {
-      const res = await axios.get(
-        "https://the-index-api.herokuapp.com/api/books/"
-      );
+      const res = await instance.get("/books/");
       const books = res.data;
       this.books = books;
       this.loading = false;
@@ -34,17 +38,15 @@ class BookStore {
   getBooksByColor = color =>
     this.filteredBooks.filter(book => book.color === color);
 
-  addBook = async userData => {
+  addBook = async newBook => {
     try {
-      const res = await axios.post(
-        "https://the-index-api.herokuapp.com/api/books/",
-        userData
-      );
+      const res = await instance.post("/books/", newBook);
       const newBook = res.data;
-      this.books.push(newBook);
-      console.log("responce", newBook);
+      this.books.unshift(newBook);
+      this.errors = null;
+      console.log("response", newBook);
     } catch (err) {
-      console.log(err.response);
+      this.errors = errToArray(err.response.data);
     }
   };
 }
@@ -53,6 +55,7 @@ decorate(BookStore, {
   books: observable,
   query: observable,
   loading: observable,
+  errors: observable,
   filteredBooks: computed
 });
 

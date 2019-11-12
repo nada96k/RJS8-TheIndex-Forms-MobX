@@ -2,11 +2,11 @@ import React from "react";
 
 // Components
 import BookTable from "./BookTable";
+import AddBookModal from "./AddBookModal";
 
 // Stores
 import authorStore from "./stores/authorStore";
 import bookStore from "./stores/bookStore";
-import AddBookModal from "./AddBookModal";
 
 const AuthorDetail = props => {
   const authorID = props.match.params.authorID;
