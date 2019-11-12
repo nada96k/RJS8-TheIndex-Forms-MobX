@@ -7,14 +7,15 @@ import authorStore from "../stores/authorStore";
 class BookForm extends Component {
   state = {
     title: "",
-    color: null
+    color: null,
+    authors: []
   };
 
-  submitBook = async event => {
-    // const authorID = this.props.match.params.data;
-    // console.log("authorid", authorID);
+  submitBook = event => {
+    const authorID = this.props.author.id;
+    this.setState.push({ authors: authorID });
     event.preventDefault();
-    await bookStore.addBook(this.state);
+    bookStore.addBook(this.state);
     if (!bookStore.errors) {
       this.props.closeModal();
     }

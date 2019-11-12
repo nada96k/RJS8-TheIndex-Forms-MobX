@@ -26,7 +26,7 @@ const AuthorDetail = props => {
         />
       </div>
       <BookTable books={books} />
-      <AddBookModal />
+      <AddBookModal author={author} />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { decorate, observable, computed } from "mobx";
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com/api/"
-});
+// const instance = axios.create({
+//   baseURL: "https://the-index-api.herokuapp.com/api/"
+// });
 
 class BookStore {
   books = [];
@@ -14,7 +14,9 @@ class BookStore {
 
   fetchBooks = async () => {
     try {
-      const res = await instance.get("books/");
+      const res = await axios.get(
+        "https://the-index-api.herokuapp.com/api/books/"
+      );
       const books = res.data;
       this.books = books;
       this.loading = false;
@@ -31,10 +33,16 @@ class BookStore {
 
   getBooksByColor = color =>
     this.filteredBooks.filter(book => book.color === color);
-  addBook = async (newBook, author) => {
+
+  addBook = async userData => {
     try {
-      const res = await axios.post("/books/", newBook, author);
-      const data = res.data;
+      const res = await axios.post(
+        "https://the-index-api.herokuapp.com/api/books/",
+        userData
+      );
+      const newBook = res.data;
+      this.books.push(newBook);
+      console.log("responce", newBook);
     } catch (err) {
       console.log(err.response);
     }
