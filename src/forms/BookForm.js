@@ -10,12 +10,10 @@ class BookForm extends Component {
   };
 
   submitBook = event => {
-    const authorID = this.props.author.id;
-    console.log("hello author", authorID);
     event.preventDefault();
-    bookStore.addBook(this.state, authorID);
+    bookStore.addBook(this.state, this.props.author);
     if (!bookStore.errors) {
-      this.props.closeModal();
+      this.props.onCloseModal();
     }
   };
 
@@ -42,7 +40,6 @@ class BookForm extends Component {
               type="text"
               className="form-control"
               name="title"
-              value={this.state.title}
               onChange={this.handleChange}
             />
           </div>
@@ -50,13 +47,16 @@ class BookForm extends Component {
             <div className="input-group-prepend">
               <span className="input-group-text">Color</span>
             </div>
-            <input
-              type="text"
+            <select
               className="form-control"
               name="color"
-              value={this.state.color}
               onChange={this.handleChange}
-            />
+            >
+              <option value="white">White</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="yellow">Yellow</option>
+            </select>
           </div>
 
           <input type="submit" />

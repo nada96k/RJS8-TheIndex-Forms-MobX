@@ -1,9 +1,5 @@
 import { decorate, observable, computed } from "mobx";
-import axios from "axios";
-
-const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com/api/"
-});
+import { instance } from "./instance";
 
 function errToArray(err) {
   return Object.keys(err).map(key => `${key}: ${err[key]}`);
@@ -20,11 +16,25 @@ class BookStore {
 
   fetchBooks = async () => {
     try {
-      const res = await instance.get("/books/");
+      const res = await instance.get("/api/books/");
       const books = res.data;
       this.books = books;
       this.loading = false;
     } catch (err) {}
+  };
+
+  addBook = async (newBook, author) => {
+    newBook.authors = [author.id];
+    try {
+      const res = await instance.post("/api/books/", newBook);
+      const book = res.data;
+      this.books.unshift(book);
+      author.books.push(book.id);
+      this.errors = null;
+      console.log("BOOK", book);
+    } catch (err) {
+      this.errors = errToArray(err.response.data);
+    }
   };
 
   get filteredBooks() {
@@ -37,23 +47,6 @@ class BookStore {
 
   getBooksByColor = color =>
     this.filteredBooks.filter(book => book.color === color);
-
-  addBook = async (newBook, author) => {
-    try {
-      const newObj = {
-        title: newBook.title,
-        color: newBook.color,
-        authors: [author]
-      };
-      const res = await instance.post("/books/", newObj);
-      const newStuff = res.data;
-      this.books.unshift(newStuff);
-      this.errors = null;
-      console.log("response", newStuff);
-    } catch (err) {
-      this.errors = errToArray(err.response.data);
-    }
-  };
 }
 
 decorate(BookStore, {

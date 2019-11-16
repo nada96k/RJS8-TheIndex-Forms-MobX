@@ -42,7 +42,6 @@ class AuthorForm extends Component {
               type="text"
               className="form-control"
               name="first_name"
-              value={this.state.first_name}
               onChange={this.handleChange}
             />
           </div>
@@ -54,7 +53,6 @@ class AuthorForm extends Component {
               type="text"
               className="form-control"
               name="last_name"
-              value={this.state.last_name}
               onChange={this.handleChange}
             />
           </div>
@@ -66,7 +64,6 @@ class AuthorForm extends Component {
               type="text"
               className="form-control"
               name="imageUrl"
-              value={this.state.imageUrl}
               onChange={this.handleChange}
             />
           </div>
