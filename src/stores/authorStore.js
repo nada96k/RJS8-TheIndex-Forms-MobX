@@ -1,9 +1,5 @@
 import { decorate, observable, computed } from "mobx";
-import axios from "axios";
-
-const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com/api/"
-});
+import { instance } from "./instance";
 
 function errToArray(err) {
   return Object.keys(err).map(key => `${key}: ${err[key]}`);
@@ -20,7 +16,7 @@ class AuthorStore {
 
   fetchAuthors = async () => {
     try {
-      const res = await instance.get("authors/");
+      const res = await instance.get("/api/authors/");
       const authors = res.data;
       this.authors = authors;
       this.loading = false;
@@ -31,7 +27,7 @@ class AuthorStore {
 
   addAuthor = async newAuthor => {
     try {
-      const res = await instance.post("authors/", newAuthor);
+      const res = await instance.post("/api/authors/", newAuthor);
       const author = res.data;
       this.authors.unshift(author);
       this.errors = null;
